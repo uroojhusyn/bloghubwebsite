@@ -6,7 +6,9 @@
 --}}
 @props(['title', 'lede' => null])
 
-<header class="page-header">
+{{-- $attributes->merge lets a page pass an id (or extra class) to target the
+     header from its own script without editing this shared component. --}}
+<header {{ $attributes->merge(['class' => 'page-header']) }}>
     <div class="container">
         <h1 class="page-header__title">{{ $title }}</h1>
         @if ($lede)

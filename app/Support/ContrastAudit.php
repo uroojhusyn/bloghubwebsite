@@ -90,6 +90,12 @@ final class ContrastAudit
         ['--color-warning',       '--color-warning-soft', self::MIN_TEXT, 'text', 'warning badge'],
         ['--color-info',          '--color-info-soft',    self::MIN_TEXT, 'text', 'info badge'],
 
+        // --- alerts (body copy sits on the tint, not in the hue) -----------------
+        ['--color-text',          '--color-success-soft', self::MIN_TEXT, 'text', 'success alert body'],
+        ['--color-text',          '--color-danger-soft',  self::MIN_TEXT, 'text', 'danger alert body'],
+        ['--color-text',          '--color-warning-soft', self::MIN_TEXT, 'text', 'warning alert body'],
+        ['--color-text',          '--color-info-soft',    self::MIN_TEXT, 'text', 'info alert body'],
+
         // --- semantic text on the page canvas -------------------------------------
         ['--color-success', '--color-bg', self::MIN_TEXT, 'text', 'success text'],
         ['--color-danger',  '--color-bg', self::MIN_TEXT, 'text', 'error text'],

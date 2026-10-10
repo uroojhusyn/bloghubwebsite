@@ -25,7 +25,7 @@
                 <div class="card__body">
                     <span class="badge">${BlogHub.escapeHtml(category.postCount)} posts</span>
                     <h2 class="card__title">
-                        <a href="/blogs?category=${encodeURIComponent(category.slug ?? '')}">${BlogHub.escapeHtml(category.name)}</a>
+                        <a href="/categories/${encodeURIComponent(category.slug ?? '')}">${BlogHub.escapeHtml(category.name)}</a>
                     </h2>
                     <p class="text-muted">${BlogHub.escapeHtml(category.description)}</p>
                 </div>

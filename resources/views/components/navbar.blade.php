@@ -49,8 +49,8 @@
 
             {{-- Auth (hidden below md) --}}
             <div class="auth-actions">
-                <a class="btn btn--outline btn--sm" href="{{ route('login') }}">Log in</a>
-                <a class="btn btn--sm" href="{{ route('register') }}">Sign up</a>
+                <a class="btn btn--outline btn--sm" href="{{ route('login') }}">Login</a>
+                <a class="btn btn--sm" href="{{ route('register') }}">Register</a>
             </div>
 
             {{-- Hamburger (below lg) --}}
@@ -89,7 +89,7 @@
     </ul>
 
     <div class="mobile-menu__actions">
-        <a class="btn btn--outline btn--block" href="{{ route('login') }}">Log in</a>
-        <a class="btn btn--block" href="{{ route('register') }}">Sign up</a>
+        <a class="btn btn--outline btn--block" href="{{ route('login') }}">Login</a>
+        <a class="btn btn--block" href="{{ route('register') }}">Register</a>
     </div>
 </div>

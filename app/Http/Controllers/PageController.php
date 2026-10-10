@@ -52,6 +52,21 @@ class PageController extends Controller
     }
 
     /**
+     * A single category, addressed by its kebab-case slug.
+     *
+     * There is no server-side lookup in this phase -- the view is a shell and
+     * public/assets/js/data.js resolves the slug client-side. Phase 2 swaps
+     * this for a real query plus a 404 when the slug is unknown; the URL shape
+     * does not have to change, so no shared link will break.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function categoryShow(string $slug)
+    {
+        return view('category-show', ['slug' => $slug]);
+    }
+
+    /**
      * All authors.
      *
      * @return \Illuminate\Contracts\View\View

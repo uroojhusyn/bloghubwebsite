@@ -65,10 +65,52 @@
                     </ul>
                 </nav>
             @endforeach
+
+            {{-- Category shortcuts. Hydrated from data.js by main.js once the
+                 taxonomy has content; the Blade link below is the fallback so
+                 the column is never an empty box.
+
+                 data-url-template keeps the route in one place. Generating the
+                 URL with a placeholder slug rather than an empty one matters:
+                 route() throws Missing required parameter for '', which would
+                 500 every page that renders this footer. --}}
+            <nav aria-label="Category shortcuts">
+                <h2 class="site-footer__heading">Categories</h2>
+                <ul class="site-footer__list" id="footer-category-list"
+                    data-url-template="{{ route('categories.show', ['slug' => '__slug__']) }}">
+                    <li>
+                        <a class="site-footer__link" href="{{ route('categories') }}">
+                            Browse all categories
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
 
+        {{-- Newsletter. Prototype shell: main.js intercepts the submit and raises
+             a toast instead of posting to a backend. Every field has a <label>. --}}
+        <section class="site-footer__newsletter" aria-labelledby="newsletter-heading">
+            <h2 class="site-footer__heading" id="newsletter-heading">Get stories in your inbox</h2>
+
+            <form data-toast="Thanks — check your inbox to confirm your subscription.">
+                <div class="site-footer__newsletter-row">
+                    <div class="site-footer__newsletter-field">
+                        <label class="form-label" for="newsletter-email">Email address</label>
+                        <input class="form-control" type="email" id="newsletter-email" name="email"
+                               placeholder="you@example.com" autocomplete="email" required>
+                    </div>
+
+                    <button class="btn btn--secondary" type="submit">Subscribe</button>
+                </div>
+
+                <p class="form-hint">One email a week. Unsubscribe at any time.</p>
+            </form>
+        </section>
+
         <div class="site-footer__bottom">
-            <p class="mb-0">&copy; {{ date('Y') }} {{ config('app.name', 'BlogHub') }}. All rights reserved.</p>
+            {{-- The Blade value is the no-JS fallback; main.js replaces it with
+                 new Date().getFullYear() so it is never a stale server year. --}}
+            <p class="mb-0">&copy; <span id="site-year">{{ date('Y') }}</span> {{ config('app.name', 'BlogHub') }}. All rights reserved.</p>
             <p class="mb-0">Built with Laravel &amp; Blade.</p>
         </div>
     </div>

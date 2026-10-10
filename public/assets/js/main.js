@@ -244,6 +244,58 @@ const Toast = (() => {
 })();
 
 /* =============================================================================
+ * MODULE: FOOTER YEAR
+ * The Blade shell renders a server-side fallback; this keeps it honest across a
+ * long-lived deploy by stamping the client's own clock onto it.
+ * ========================================================================== */
+const SiteYear = (() => {
+    const init = () => {
+        const target = document.getElementById('site-year');
+        if (!target) {
+            return;
+        }
+        target.textContent = String(new Date().getFullYear());
+    };
+
+    return { init };
+})();
+
+/* =============================================================================
+ * MODULE: FOOTER CATEGORY SHORTCUTS
+ * Hydrates the footer's category column from data.js. When the taxonomy is
+ * empty the Blade fallback ("Browse all categories") is left untouched, so the
+ * column is never blank.
+ * ========================================================================== */
+const FooterCategories = (() => {
+    const MAX_SHORTCUTS = 6;
+
+    const init = () => {
+        const list = document.getElementById('footer-category-list');
+        const categories = window.BLOGHUB?.categories ?? [];
+
+        if (!list || categories.length === 0) {
+            return;
+        }
+
+        list.innerHTML = categories
+            .slice(0, MAX_SHORTCUTS)
+            .map((category) => {
+                // The route template is emitted by Blade (with a placeholder
+                // slug), so the path is never duplicated in JavaScript.
+                const template = list.dataset.urlTemplate || '/categories/__slug__';
+                const href = template.replace('__slug__', encodeURIComponent(category.slug));
+
+                return `<li>
+                    <a class="site-footer__link" href="${href}">${BlogHub.escapeHtml(category.name)}</a>
+                </li>`;
+            })
+            .join('');
+    };
+
+    return { init };
+})();
+
+/* =============================================================================
  * BOOT
  * ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
@@ -253,6 +305,8 @@ document.addEventListener('DOMContentLoaded', () => {
     MobileMenu.init();
     BackToTop.init();
     Toast.init();
+    SiteYear.init();
+    FooterCategories.init();
 });
 
 // Exposed so page-level scripts can surface messages.

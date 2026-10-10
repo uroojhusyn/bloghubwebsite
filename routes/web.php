@@ -24,6 +24,11 @@ Route::get('/blog-details', [PageController::class, 'blogDetails'])->name('blog-
 
 // ----------------------------------------------------------- Taxonomies
 Route::get('/categories', [PageController::class, 'categories'])->name('categories');
+// A single category, addressed by its kebab-case slug. Placed after the exact
+// /categories route; the different segment counts mean they never collide.
+Route::get('/categories/{slug}', [PageController::class, 'categoryShow'])
+    ->name('categories.show')
+    ->where('slug', '[a-z0-9-]+');
 Route::get('/authors', [PageController::class, 'authors'])->name('authors');
 Route::get('/author-profile', [PageController::class, 'authorProfile'])->name('author-profile');
 
