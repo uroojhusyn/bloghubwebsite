@@ -1,0 +1,709 @@
+﻿/* =============================================================================
+   BlogHub — components.css
+   Reusable UI components. Class names are kebab-case; every icon-only control
+   carries an aria-label in the Blade markup.
+   ============================================================================= */
+
+/* =============================================================================
+   1. BUTTONS
+   ============================================================================= */
+.btn {
+    /* Bootstrap scopes --bs-btn-* to .btn, so :root can't reach them. These
+       keep Bootstrap's own button internals aligned with the BlogHub system. */
+    --bs-btn-font-family: var(--font-body);
+    --bs-btn-font-size: var(--fs-body);
+    --bs-btn-font-weight: var(--btn-font-weight);
+    --bs-btn-line-height: 1;
+    --bs-btn-padding-x: var(--btn-padding-x);
+    --bs-btn-padding-y: 0;
+    --bs-btn-color: var(--color-text-inverse);
+    --bs-btn-bg: var(--color-primary);
+    --bs-btn-border-width: 1px;
+    --bs-btn-border-color: transparent;
+    --bs-btn-border-radius: var(--radius-md);
+    --bs-btn-box-shadow: none;
+    --bs-btn-hover-color: var(--color-text-inverse);
+    --bs-btn-hover-bg: var(--color-primary-hover);
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-disabled-opacity: 0.55;
+    --bs-btn-focus-shadow-rgb: var(--color-focus-rgb);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: var(--btn-height-md);   /* WCAG 2.5.8 target size */
+    padding: var(--space-2) var(--btn-padding-x);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-size: var(--fs-body);
+    font-weight: var(--btn-font-weight);
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--transition-fast),
+                border-color var(--transition-fast),
+                color var(--transition-fast);
+}
+
+.btn:hover {
+    background-color: var(--color-primary-hover);
+    color: var(--color-text-inverse);
+}
+
+.btn--secondary {
+    background-color: var(--color-accent);
+    --bs-btn-bg: var(--color-accent);
+    --bs-btn-hover-bg: var(--color-accent-hover);
+}
+
+.btn--secondary:hover {
+    background-color: var(--color-accent-hover);
+    color: var(--color-text-inverse);
+}
+
+.btn--outline {
+    background-color: transparent;
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+    --bs-btn-bg: transparent;
+    --bs-btn-color: var(--color-text);
+    --bs-btn-border-color: var(--color-border-strong);
+    --bs-btn-hover-bg: var(--color-surface);
+    --bs-btn-hover-color: var(--color-text);
+}
+
+.btn--outline:hover {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+}
+
+.btn--ghost {
+    background-color: transparent;
+    color: var(--color-primary);
+    --bs-btn-bg: transparent;
+    --bs-btn-color: var(--color-primary);
+    --bs-btn-hover-bg: var(--color-primary-soft);
+    --bs-btn-hover-color: var(--color-primary-hover);
+}
+
+.btn--ghost:hover {
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary-hover);
+}
+
+.btn--sm {
+    min-height: var(--btn-height-sm);
+    padding: var(--space-1) var(--btn-padding-x-sm);
+    font-size: var(--fs-caption);
+    --bs-btn-padding-x: var(--btn-padding-x-sm);
+    --bs-btn-font-size: var(--fs-caption);
+}
+
+.btn--lg {
+    min-height: var(--btn-height-lg);
+    padding: var(--space-3) var(--btn-padding-x);
+    font-size: var(--fs-h3);
+    --bs-btn-padding-x: var(--btn-padding-x);
+    --bs-btn-font-size: var(--fs-h3);
+}
+
+.btn--block {
+    width: 100%;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* Icon-only button (square, matches the md button height, always aria-labelled
+   in the markup). */
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--btn-height-md);
+    height: var(--btn-height-md);
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    background-color: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.icon-btn:hover {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+}
+
+/* =============================================================================
+   2. FORMS
+   Every field in a view must have an associated <label for>.
+   ============================================================================= */
+.form-group {
+    margin-bottom: var(--space-4);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface-raised);
+    color: var(--color-text);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control::placeholder {
+    color: var(--color-text-muted);
+}
+
+.form-control:focus {
+    border-color: var(--color-focus);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.form-control:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+textarea.form-control {
+    min-height: 160px;
+    resize: vertical;
+}
+
+.form-hint {
+    margin-top: var(--space-2);
+    font-family: var(--font-meta);
+    font-size: var(--fs-caption);
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   3. CARDS
+   ============================================================================= */
+.card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background-color: var(--color-surface-raised);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.card__media {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background-color: var(--color-surface);
+}
+
+.card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-6);
+}
+
+.card__title {
+    margin: 0;
+    font-size: var(--fs-h3);
+}
+
+.card__title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.card__title a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.card__meta {
+    margin-top: auto;
+    font-family: var(--font-meta);
+    font-size: var(--fs-caption);
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   4. BADGES & CHIPS
+   ============================================================================= */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-family: var(--font-meta);
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-semibold);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    text-decoration: none;
+}
+
+/* Coral as *text* on a coral tint is only 4.13:1 — --color-accent-strong
+   takes it to 5.48:1 (light) / 7.24:1 (dark). */
+.badge--accent {
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent-strong);
+}
+
+/* =============================================================================
+   5. PAGE HEADER (shared by every non-home page)
+   ============================================================================= */
+.page-header {
+    padding-block: var(--space-12);
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.page-header__title {
+    margin-bottom: var(--space-2);
+}
+
+.page-header__lede {
+    max-width: 60ch;
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+    font-size: var(--fs-lede);
+}
+
+/* =============================================================================
+   6. EMPTY STATE
+   ============================================================================= */.empty-state {
+    padding: var(--space-12) var(--space-6);
+    text-align: center;
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+}
+
+.empty-state__icon {
+    margin-bottom: var(--space-4);
+    font-size: var(--fs-h1);
+    color: var(--color-text-muted);
+}
+
+.empty-state__title {
+    font-size: var(--fs-h3);
+}
+
+.empty-state__text {
+    max-width: 48ch;
+    margin-inline: auto;
+    margin-bottom: var(--space-6);
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   7. NAVBAR
+   ============================================================================= */
+.site-navbar {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-navbar);
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    transition: box-shadow var(--transition-base);
+}
+
+.site-navbar.is-scrolled {
+    box-shadow: var(--shadow-md);
+}
+
+.site-navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: var(--navbar-height);
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.brand__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-family: var(--font-body);
+    font-weight: 700;
+}
+
+.site-nav {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    .site-nav {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .site-nav__link {
+        display: block;
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-md);
+        color: var(--color-text);
+        font-size: var(--fs-body);
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .site-nav__link:hover {
+        background-color: var(--color-surface);
+        color: var(--color-primary);
+    }
+
+    .site-nav__link.is-active {
+        color: var(--color-primary);
+        font-weight: 600;
+    }
+}
+
+.site-navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.navbar-toggle {
+    display: inline-flex;
+}
+
+@media (min-width: 992px) {
+    .navbar-toggle {
+        display: none;
+    }
+}
+
+.auth-actions {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .auth-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+    }
+}
+
+/* --- Mobile off-canvas menu --- */
+.mobile-menu {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: var(--z-overlay);
+    width: min(320px, 85vw);
+    padding: var(--space-6) var(--space-4);
+    background-color: var(--color-bg);
+    border-right: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(-100%);
+    /* Translating off-screen is not enough: the links would stay in the tab
+       order and a keyboard user would focus invisible items with no visible
+       focus ring (WCAG 2.4.3 / 2.4.7). visibility:hidden takes them out of both
+       the tab order and the accessibility tree.
+
+       visibility animates so every intermediate step stays "visible" and only
+       the final step flips — so the panel remains painted while it slides out
+       and hides exactly when the slide finishes. Same pattern as .menu-backdrop.
+       Keep the delay out of this shorthand: `visibility 0s linear
+       var(--transition-base)` expands to "250ms ease", i.e. two easing
+       functions, which makes the entire declaration invalid. */
+    visibility: hidden;
+    transition: transform var(--transition-base),
+                visibility var(--transition-base);
+    overflow-y: auto;
+}
+
+.mobile-menu.is-open {
+    transform: translateX(0);
+    visibility: visible;
+    /* Deliberately omits visibility. Transitions are defined by the after-change
+       style, so on open the visibility change applies instantly — main.js
+       focuses the first link in the same tick, and focus() is a no-op on an
+       element whose computed visibility is still hidden. On close the
+       after-change style is the base rule above, which gives visibility its
+       250ms, so the panel stays painted until it has finished sliding out. */
+    transition: transform var(--transition-base);
+}
+
+.mobile-menu__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+}
+
+.mobile-menu__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mobile-menu__link {
+    display: block;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.mobile-menu__link:hover,
+.mobile-menu__link.is-active {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+}
+
+.mobile-menu__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+}
+
+.menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-overlay) - 1);
+    background-color: var(--color-scrim);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.menu-backdrop.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =============================================================================
+   8. FOOTER
+   ============================================================================= */
+.site-footer {
+    margin-top: var(--space-16);
+    padding-block: var(--space-12) var(--space-6);
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+}
+
+.site-footer__grid {
+    display: grid;
+    gap: var(--space-8);
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .site-footer__grid {
+        grid-template-columns: 2fr 1fr 1fr;
+    }
+}
+
+.site-footer__heading {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+}
+
+.site-footer__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-footer__list li + li {
+    margin-top: var(--space-2);
+}
+
+.site-footer__link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+}
+
+.site-footer__link:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    justify-content: space-between;
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    font-family: var(--font-meta);
+    font-size: var(--fs-caption);
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   9. SCROLL PROGRESS BAR
+   ============================================================================= */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: calc(var(--z-navbar) + 1);
+    width: 0;
+    height: 3px;
+    background-color: var(--color-accent);
+    transition: width 80ms linear;
+}
+
+/* =============================================================================
+   10. BACK TO TOP
+   ============================================================================= */
+.back-to-top {
+    position: fixed;
+    right: var(--space-4);
+    bottom: var(--space-4);
+    z-index: var(--z-navbar);
+    width: var(--btn-height-md);
+    height: var(--btn-height-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-surface-raised);
+    color: var(--color-text);
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity var(--transition-base), transform var(--transition-base), visibility var(--transition-base);
+}
+
+.back-to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-text-inverse);
+}
+
+/* =============================================================================
+   11. TOAST NOTIFICATIONS
+   ============================================================================= */
+.toast-region {
+    position: fixed;
+    right: var(--space-4);
+    bottom: var(--space-12);
+    z-index: var(--z-toast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    width: min(360px, calc(100vw - 32px));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.toast-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface-raised);
+    box-shadow: var(--shadow-lg);
+    animation: toast-in var(--transition-base) both;
+}
+
+.toast-item--success { border-left-color: var(--color-success); }
+.toast-item--danger  { border-left-color: var(--color-danger); }
+
+.toast-item__body {
+    flex: 1;
+}
+
+.toast-item__close {
+    flex-shrink: 0;
+}
+
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =============================================================================
+   12. AUTH CARD
+   Centred single-column shell for login / register / forgot-password.
+   ============================================================================= */
+.auth-card {
+    max-width: 440px;
+    margin-inline: auto;
+    padding: var(--space-8) var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background-color: var(--color-surface-raised);
+    box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 575px) {
+    .auth-card {
+        padding: var(--space-6) var(--space-4);
+    }
+}

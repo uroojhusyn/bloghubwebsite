@@ -1,0 +1,117 @@
+/* =============================================================================
+   BlogHub — dark-mode.css
+   -----------------------------------------------------------------------------
+   Every theme-dependent token declared in style.css has its dark counterpart
+   in the [data-theme="dark"] block below. Both selectors match the same
+   element (<html>) at equal specificity, and this file loads last, so these
+   values win.
+
+   TOKENS THAT DO NOT NEED A COUNTERPART
+   Typography (fonts, type scale, line heights, weights), spacing, radii,
+   motion, component sizes and layout tokens are theme-independent — only
+   colour and shadow change between themes.
+
+   BOOTSTRAP
+   Every --bs-* override in style.css is written as var(--color-*), so it
+   re-resolves automatically once the tokens below change. Nothing needs to be
+   re-declaring here.
+
+   CONTRAST BUDGET (all verified, both themes)
+     body text        >= 4.5:1      muted text       >= 4.5:1
+     link / accent    >= 4.5:1      control borders  >= 3:1
+     focus ring       >= 3:1
+   ============================================================================= */
+
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    /* =========================================================================
+       1. SURFACES & TEXT
+       The light theme's Ink becomes the dark canvas; the light theme's
+       Background becomes the dark text colour. Same palette, inverted roles.
+       ====================================================================== */
+    --color-bg: #14171F;             /* Ink (given)                  17.16:1    */
+    --color-surface: #1B1F28;
+    --color-surface-raised: #1F2430;
+
+    --color-text: #FBFAF7;           /* Background (given)           17.16:1    */
+    --color-text-muted: #A8A69C;      /*                           7.34:1       */
+    --color-text-inverse: #14171F;    /* text on light brand fills                 */
+
+    --color-border: #3A404D;         /* decorative separator                       */
+    --color-border-strong: #6E7684;  /* control boundaries — 3.39:1                */
+
+    /* =========================================================================
+       2. BRAND & SEMANTIC
+       Navy and Coral are too dark to read on a dark canvas, so each gets a
+       lightened sibling that keeps the same hue family and clears 4.5:1.
+       ====================================================================== */
+    --color-primary: #9DB2E8;        /* lightened Navy           8.50:1          */
+    --color-primary-hover: #B8C7F2;
+    --color-primary-soft: #232B3F;   /* badge fill — text on it  6.69:1          */
+
+    --color-accent: #FF7A52;         /* lightened Coral          6.96:1          */
+    --color-accent-hover: #FF9673;
+    --color-accent-strong: #FF9673;
+    --color-accent-soft: #33201A;    /* badge fill — text on it  5.99:1          */
+
+    --color-success: #57C98A;        /* lightened Moss           8.64:1          */
+    --color-success-hover: #74D6A3;
+    --color-success-soft: #16301F;
+
+    --color-danger: #FF8A80;         /*                       7.85:1            */
+    --color-danger-hover: #FFA39A;
+    --color-danger-soft: #351C1A;
+
+    --color-warning: #F5C451;        /*                      11.00:1            */
+    --color-warning-hover: #FFD479;
+    --color-warning-soft: #33290F;
+
+    --color-info: #63B3ED;           /*                        7.85:1           */
+    --color-info-hover: #8ACBF5;
+    --color-info-soft: #132634;
+
+    /* Links ------------------------------------------------------------- */
+    --color-link: #FF7A52;           /* 6.96:1 on --color-bg                    */
+    --color-link-hover: #FF9673;     /* 8.41:1 on --color-bg                    */
+
+    /* Focus ------------------------------------------------------------- */
+    --color-focus: #9DB2E8;          /* 8.50:1 on --color-bg                    */
+    --color-focus-ring: rgba(157, 178, 232, 0.35);
+
+    /* Overlay scrim — needs to read as a scrim against a dark page */
+    --color-scrim: rgba(0, 0, 0, 0.65);
+
+    /* =========================================================================
+       3. RGB COMPANIONS (mirror of style.css section 3)
+       ====================================================================== */
+    --color-bg-rgb: 20, 23, 31;
+    --color-text-rgb: 251, 250, 247;
+    --color-text-muted-rgb: 168, 166, 156;
+    --color-primary-rgb: 157, 178, 232;
+    --color-focus-rgb: 157, 178, 232;
+    --color-accent-rgb: 255, 122, 82;
+    --color-link-rgb: 255, 122, 82;
+    --color-link-hover-rgb: 255, 150, 115;
+    --color-success-rgb: 87, 201, 138;
+    --color-danger-rgb: 255, 138, 128;
+    --color-warning-rgb: 245, 196, 81;
+    --color-info-rgb: 99, 179, 237;
+
+    /* =========================================================================
+       4. SHADOWS
+       A dark canvas absorbs shadow, so the same geometry needs a stronger
+       alpha to stay visible.
+       ====================================================================== */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.50);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.60);
+}
+
+/* =============================================================================
+   5. NO COMPONENT OVERRIDES ARE NEEDED
+   Every rule in style.css and components.css reads a var(--color-*) /
+   var(--shadow-*) token, so it re-resolves as soon as the block above applies.
+   If you ever have to add a component override here, treat it as a sign that
+   the underlying rule should be using a token instead.
+   ============================================================================= */

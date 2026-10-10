@@ -1,0 +1,510 @@
+/* =============================================================================
+   BlogHub — style.css
+   Design system: colour tokens, typography scale, spacing scale, radii,
+   shadows, component sizes, Bootstrap 5 overrides, base styles and layout.
+
+   Load order:  style.css  ->  components.css  ->  dark-mode.css
+
+   THEMING
+   This file holds the LIGHT theme in :root. Every theme-dependent token has a
+   [data-theme="dark"] counterpart in dark-mode.css — when you add a colour
+   token here you must add it there too, otherwise it silently stays light.
+
+   CONTRAST
+   Every foreground/background pair in the design is >= 4.5:1 for body text
+   (>= 3:1 for UI borders and focus rings) in both themes. Run
+   `php contrast-audit.php` — it parses these files directly and checks all
+   76 pairings, so it cannot drift from what actually ships.
+   ============================================================================= */
+
+:root {
+    /* Native scrollbars, form controls and the UA focus ring follow the theme */
+    color-scheme: light;
+
+    /* =========================================================================
+       1. COLOUR — SURFACES & TEXT (light theme)
+       ====================================================================== */
+    --color-bg: #FBFAF7;             /* page canvas (given)                     */
+    --color-surface: #FFFFFF;        /* panels: header, footer, empty states     */
+    --color-surface-raised: #FFFFFF; /* cards and form controls                  */
+
+    --color-text: #14171F;           /* Ink (given)                  17.16:1    */
+    --color-text-muted: #64615B;     /* secondary copy                 5.91:1    */
+    --color-text-inverse: #FBFAF7;   /* text placed on strong colours            */
+
+    --color-border: #D8D5CC;         /* Border (given) — decorative only         */
+    --color-border-strong: #8F8C81;  /* control boundaries — 3.23:1 (WCAG 1.4.11) */
+
+    /* =========================================================================
+       2. COLOUR — BRAND & SEMANTIC
+       ====================================================================== */
+    --color-primary: #1F2A44;        /* Navy (given)                             */
+    --color-primary-hover: #16203A;
+    --color-primary-soft: #E7EAF2;
+
+    --color-accent: #C8461F;         /* Coral (given)                            */
+    --color-accent-hover: #A83A16;
+    --color-accent-strong: #A83A16;  /* coral used AS TEXT on tinted backgrounds  */
+    --color-accent-soft: #FBEAE3;
+
+    --color-success: #3F5A45;        /* Moss (given)                             */
+    --color-success-hover: #324938;
+    --color-success-soft: #E8EFE9;
+
+    --color-danger: #A3231C;
+    --color-danger-hover: #871C16;
+    --color-danger-soft: #FAEAE9;
+
+    --color-warning: #8A5A00;
+    --color-warning-hover: #704A00;
+    --color-warning-soft: #FBF0DC;
+
+    --color-info: #1D5FA8;
+    --color-info-hover: #164E89;
+    --color-info-soft: #E6EFF8;
+
+    /* Links ------------------------------------------------------------- */
+    --color-link: #C8461F;           /* 4.62:1 on --color-bg                    */
+    --color-link-hover: #A83A16;     /* 6.13:1 on --color-bg                    */
+
+    /* Focus ------------------------------------------------------------- */
+    --color-focus: #1F2A44;          /* outline colour — 13.65:1 on --color-bg   */
+    --color-focus-ring: rgba(31, 42, 68, 0.25); /* soft glow / Bootstrap ring    */
+
+    /* Overlay scrim behind the mobile menu */
+    --color-scrim: rgba(16, 24, 40, 0.5);
+
+    /* =========================================================================
+       3. COLOUR — RGB COMPANIONS
+       Bootstrap resolves many values as rgba(var(--bs-*-rgb), 1); these exist
+       purely so the overrides in section 7 can delegate to the hex tokens.
+       ====================================================================== */
+    --color-bg-rgb: 251, 250, 247;
+    --color-text-rgb: 20, 23, 31;
+    --color-text-muted-rgb: 100, 97, 91;
+    --color-primary-rgb: 31, 42, 68;
+    --color-focus-rgb: 31, 42, 68;
+    --color-accent-rgb: 200, 70, 31;
+    --color-link-rgb: 200, 70, 31;
+    --color-link-hover-rgb: 168, 58, 22;
+    --color-success-rgb: 63, 90, 69;
+    --color-danger-rgb: 163, 35, 28;
+    --color-warning-rgb: 138, 90, 0;
+    --color-info-rgb: 29, 95, 168;
+
+    /* =========================================================================
+       4. TYPOGRAPHY
+       Fraunces = headings, Inter = body, IBM Plex Mono = meta labels.
+       Type scale: H1 40 / H2 28 / H3 20 / body 16 / caption 13.
+       ====================================================================== */
+    --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --font-meta: var(--font-mono);   /* meta labels, badges, captions of record  */
+
+    --fs-h1: 40px;
+    --fs-h2: 28px;
+    --fs-h3: 20px;
+    --fs-h4: 17px;
+    --fs-h5: 16px;
+    --fs-h6: 14px;
+    --fs-body: 16px;
+    --fs-lede: 18px;                 /* intro copy, sits between H3 and body      */
+    --fs-caption: 13px;
+
+    --lh-tight: 1.2;
+    --lh-heading: 1.3;
+    --lh-body: 1.6;
+
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+
+    /* =========================================================================
+       5. SPACING — 4/8px SCALE
+       The number is the count of 4px units: --space-2 = 8px, --space-4 = 16px.
+       Every value is a multiple of 4; every even index is a multiple of 8.
+       ====================================================================== */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-7: 28px;
+    --space-8: 32px;
+    --space-9: 36px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-14: 56px;
+    --space-16: 64px;
+    --space-20: 80px;
+    --space-24: 96px;
+
+    /* =========================================================================
+       6. RADII, SHADOWS, MOTION, COMPONENT SIZES
+       ====================================================================== */
+    /* Radii (fixed) */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-pill: 999px;
+    --radius-circle: 50%;
+
+    /* Shadows (fixed) — alpha is tuned for the light canvas */
+    --shadow-sm: 0 1px 2px rgba(20, 23, 31, 0.06);
+    --shadow-md: 0 4px 12px rgba(20, 23, 31, 0.10);
+    --shadow-lg: 0 12px 32px rgba(20, 23, 31, 0.14);
+
+    /* Motion */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+
+    /* Buttons (fixed heights — md clears the 44px WCAG 2.5.8 target size) */
+    --btn-height-sm: 36px;
+    --btn-height-md: 44px;
+    --btn-height-lg: 52px;
+    --btn-padding-x: var(--space-6); /* 24px */
+    --btn-padding-x-sm: var(--space-4); /* 16px */
+    --btn-font-weight: var(--fw-semibold);
+
+    /* Layout */
+    --container-max: 1200px;
+    --navbar-height: 72px;
+    --z-navbar: 100;
+    --z-overlay: 200;
+    --z-toast: 300;
+
+    /* =========================================================================
+       7. BOOTSTRAP 5 OVERRIDES
+       Bootstrap 5.3.3 ships these from its own :root block; this file loads
+       afterwards at equal specificity, so these win. Values delegate to the
+       BlogHub tokens above so both themes stay in sync automatically.
+
+       NOTE: --bs-btn-* are NOT :root tokens — Bootstrap scopes them to .btn.
+       They are overridden inside the .btn block in components.css.
+       ====================================================================== */
+    /* Fonts & body */
+    --bs-font-sans-serif: var(--font-body);
+    --bs-font-monospace: var(--font-mono);
+    --bs-body-font-family: var(--font-body);
+    --bs-body-font-size: var(--fs-body);
+    --bs-body-font-weight: var(--fw-regular);
+    --bs-body-line-height: var(--lh-body);
+    --bs-body-bg: var(--color-bg);
+    --bs-body-color: var(--color-text);
+    --bs-body-bg-rgb: var(--color-bg-rgb);
+    --bs-body-color-rgb: var(--color-text-rgb);
+
+    /* Text roles — .text-muted resolves var(--bs-secondary-color) with
+       !important, so this is the only way to theme it. */
+    --bs-emphasis-color: var(--color-text);
+    --bs-emphasis-color-rgb: var(--color-text-rgb);
+    --bs-secondary-color: var(--color-text-muted);
+    --bs-secondary-color-rgb: var(--color-text-muted-rgb);
+    --bs-tertiary-color: var(--color-text-muted);
+    --bs-heading-color: var(--color-text);
+
+    /* Links */
+    --bs-link-color: var(--color-link);
+    --bs-link-color-rgb: var(--color-link-rgb);
+    --bs-link-hover-color: var(--color-link-hover);
+    --bs-link-hover-color-rgb: var(--color-link-hover-rgb);
+    --bs-link-decoration: underline;
+
+    /* Borders, radii, shadows */
+    --bs-border-width: 1px;
+    --bs-border-style: solid;
+    --bs-border-color: var(--color-border);
+    --bs-border-color-translucent: var(--color-border);
+    --bs-border-radius: var(--radius-md);
+    --bs-border-radius-sm: var(--radius-sm);
+    --bs-border-radius-lg: var(--radius-lg);
+    --bs-border-radius-xl: var(--radius-xl);
+    --bs-border-radius-pill: var(--radius-pill);
+    --bs-box-shadow: var(--shadow-md);
+    --bs-box-shadow-sm: var(--shadow-sm);
+    --bs-box-shadow-lg: var(--shadow-lg);
+
+    /* Focus ring */
+    --bs-focus-ring-color: var(--color-focus-ring);
+    --bs-focus-ring-width: 0.25rem;
+    --bs-focus-ring-opacity: 1;
+
+    /* Semantic palette (drives .bg-*/.text-*/.border-* and focus rings) */
+    --bs-primary: var(--color-primary);
+    --bs-primary-rgb: var(--color-primary-rgb);
+    --bs-primary-bg-subtle: var(--color-primary-soft);
+    --bs-primary-text-emphasis: var(--color-primary);
+    --bs-secondary: var(--color-text-muted);
+    --bs-success: var(--color-success);
+    --bs-success-rgb: var(--color-success-rgb);
+    --bs-success-bg-subtle: var(--color-success-soft);
+    --bs-success-text-emphasis: var(--color-success);
+    --bs-danger: var(--color-danger);
+    --bs-danger-rgb: var(--color-danger-rgb);
+    --bs-danger-bg-subtle: var(--color-danger-soft);
+    --bs-danger-text-emphasis: var(--color-danger);
+    --bs-warning: var(--color-warning);
+    --bs-warning-rgb: var(--color-warning-rgb);
+    --bs-warning-bg-subtle: var(--color-warning-soft);
+    --bs-warning-text-emphasis: var(--color-warning);
+    --bs-info: var(--color-info);
+    --bs-info-rgb: var(--color-info-rgb);
+    --bs-info-bg-subtle: var(--color-info-soft);
+    --bs-info-text-emphasis: var(--color-info);
+    --bs-highlight-bg: var(--color-accent-soft);
+    --bs-code-color: var(--color-info);
+}
+
+/* =============================================================================
+   8. RESET & BASE
+   ============================================================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/* =============================================================================
+   9. TYPOGRAPHY
+   Heading sizes come straight from the type scale — no ad-hoc font sizes.
+   One H1 per page is enforced at the view level.
+   ============================================================================= */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 var(--space-4);
+    font-family: var(--font-heading);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-heading);
+    color: var(--bs-heading-color, var(--color-text));
+}
+
+h1 { font-size: var(--fs-h1); line-height: var(--lh-tight); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+h4 { font-size: var(--fs-h4); }
+h5 { font-size: var(--fs-h5); }
+h6 { font-size: var(--fs-h6); }
+
+p {
+    margin: 0 0 var(--space-4);
+}
+
+a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--transition-fast);
+}
+
+a:hover,
+a:focus-visible {
+    color: var(--color-link-hover);
+}
+
+small,
+.caption {
+    font-size: var(--fs-caption);
+}
+
+code,
+kbd,
+samp {
+    font-family: var(--font-mono);
+    font-size: 0.9375em;
+}
+
+mark {
+    background-color: var(--color-accent-soft);
+    color: var(--color-text);
+    padding: 0 var(--space-1);
+}
+
+/* Meta labels — IBM Plex Mono, uppercase, tracked out. */
+.meta-label {
+    font-family: var(--font-meta);
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-medium);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   10. LAYOUT
+   ============================================================================= */
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+}
+
+@media (min-width: 992px) {
+    .container {
+        padding-inline: var(--space-6);
+    }
+}
+
+.section {
+    padding-block: var(--space-12);
+}
+
+.section--tight {
+    padding-block: var(--space-8);
+}
+
+@media (min-width: 992px) {
+    .section {
+        padding-block: var(--space-20);
+    }
+
+    .section--tight {
+        padding-block: var(--space-12);
+    }
+}
+
+.page-main {
+    min-height: 60vh;
+}
+
+.stack > * + * {
+    margin-top: var(--space-4);
+}
+
+.grid-auto {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+}
+
+/* Test at 575 / 767 / 991 / 1199px */
+@media (min-width: 576px) {
+    .grid-auto { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 992px) {
+    .grid-auto { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* =============================================================================
+   11. UTILITIES
+   ============================================================================= */
+.text-muted { color: var(--color-text-muted); }
+.text-center { text-align: center; }
+
+.mt-0 { margin-top: 0; }
+.mt-2 { margin-top: var(--space-4); }
+.mt-3 { margin-top: var(--space-6); }
+.mt-4 { margin-top: var(--space-8); }
+.mb-0 { margin-bottom: 0; }
+.mb-2 { margin-bottom: var(--space-4); }
+.mb-3 { margin-bottom: var(--space-6); }
+.mb-4 { margin-bottom: var(--space-8); }
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* =============================================================================
+   12. ACCESSIBILITY
+   ============================================================================= */
+
+/* Skip link: off-screen until focused, then pinned above the sticky navbar. */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: var(--space-4);
+    z-index: var(--z-overlay);
+    padding: var(--space-2) var(--space-4);
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-weight: var(--fw-semibold);
+    text-decoration: none;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.skip-link:focus {
+    top: 0;
+    color: var(--color-text-inverse);
+}
+
+/* One visible focus treatment for every interactive element. The 2px offset
+   puts the ring on the page canvas, so it keeps its 3:1 contrast even when it
+   sits around a Navy or Coral button. */
+:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
